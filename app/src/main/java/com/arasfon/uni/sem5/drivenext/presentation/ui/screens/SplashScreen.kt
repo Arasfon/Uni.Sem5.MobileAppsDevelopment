@@ -75,17 +75,11 @@ fun SplashScreen(
                     .fillMaxWidth()
                     .weight(2f)
             ) {
-                GreetingImage()
+                Image(
+                    painter = painterResource(R.drawable.greeting),
+                    contentDescription = null
+                )
             }
         }
     }
-}
-
-@Composable
-fun GreetingImage(modifier: Modifier = Modifier) {
-    val image = painterResource(R.drawable.greeting)
-    Image(
-        painter = image,
-        contentDescription = null
-    )
 }

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">DriveNext</string>
+    <string name="app_name" translatable="false">DriveNext</string>
+    <string name="splash_subtitle">Поможем найти твою следующую поездку</string>
 </resources>

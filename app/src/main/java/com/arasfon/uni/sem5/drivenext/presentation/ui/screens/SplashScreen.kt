@@ -36,7 +36,7 @@ fun SplashScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
-        LaunchedEffect(true) {
+        LaunchedEffect(Unit) {
             delay(3000)
 
             if (isOnboardingComplete)

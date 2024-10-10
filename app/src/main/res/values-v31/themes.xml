@@ -2,6 +2,6 @@
 <resources>
     <style name="Theme.DriveNext" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@color/accent</item>
+        <item name="android:windowSplashScreenBackground">@color/accent</item>
     </style>
 </resources>

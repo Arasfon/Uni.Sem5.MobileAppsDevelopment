@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.arasfon.uni.mobileappsdevelopment"
+    namespace = "com.arasfon.uni.sem5.drivenext"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.arasfon.uni.mobileappsdevelopment"
+        applicationId = "com.arasfon.uni.sem5.drivenext"
         minSdk = 30
         targetSdk = 35
         versionCode = 1

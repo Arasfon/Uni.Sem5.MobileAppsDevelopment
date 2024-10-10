@@ -45,40 +45,42 @@ fun SplashScreen(
                 onNavigateToOnboardingScreen()
         }
 
-        Column(
+        Box(
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(horizontal = 24.dp)
                 .fillMaxSize()
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+            Column {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    contentAlignment = Alignment.CenterStart
                 ) {
-                    Text(
-                        text = stringResource(R.string.app_name),
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                    Text(
-                        text = stringResource(R.string.splash_subtitle)
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.app_name),
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                        Text(
+                            text = stringResource(R.string.splash_subtitle)
+                        )
+                    }
+                }
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(2f)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.greeting),
+                        contentDescription = null
                     )
                 }
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(2f)
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.greeting),
-                    contentDescription = null
-                )
             }
         }
     }

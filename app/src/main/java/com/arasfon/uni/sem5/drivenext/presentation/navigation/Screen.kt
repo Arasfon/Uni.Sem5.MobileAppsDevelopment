@@ -6,4 +6,5 @@ sealed class Screen(
     data object Splash : Screen("splash")
     data object Onboarding : Screen("onboarding")
     data object Main : Screen("main")
+    data object NoConnection : Screen("no_connection")
 }

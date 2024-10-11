@@ -10,4 +10,7 @@
     <string name="skip">Пропустить</string>
     <string name="onboarding_continue">Далее</string>
     <string name="onboarding_finish">Поехали</string>
+    <string name="no_connection_title">Нет подключения\nк интернету</string>
+    <string name="no_connection_subtitle">Проверьте подключение и повторите попытку</string>
+    <string name="no_connection_retry">Повторить попытку</string>
 </resources>

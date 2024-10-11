@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.MainScreen
+import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.NoConnectionScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.OnboardingScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SplashScreen
 
@@ -33,6 +34,9 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
         }
         composable(Screen.Main.route) {
             MainScreen()
+        }
+        composable(Screen.NoConnection.route) {
+            NoConnectionScreen()
         }
     }
 }

@@ -22,7 +22,11 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
             )
         }
         composable(Screen.Onboarding.route) {
-            OnboardingScreen()
+            OnboardingScreen(
+                onFinish = {
+                    navController.navigateClearingBackStack(Screen.Main.route)
+                }
+            )
         }
         composable(Screen.Main.route) {
             MainScreen()

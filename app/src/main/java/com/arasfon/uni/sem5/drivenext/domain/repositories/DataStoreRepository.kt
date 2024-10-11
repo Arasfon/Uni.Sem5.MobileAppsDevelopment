@@ -1,4 +1,4 @@
-package com.arasfon.uni.sem5.drivenext.data.repositories
+package com.arasfon.uni.sem5.drivenext.domain.repositories
 
 import kotlinx.coroutines.flow.Flow
 

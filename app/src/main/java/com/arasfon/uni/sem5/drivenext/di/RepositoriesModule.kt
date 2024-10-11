@@ -1,7 +1,7 @@
 package com.arasfon.uni.sem5.drivenext.di
 
-import com.arasfon.uni.sem5.drivenext.data.repositories.DataStoreRepository
 import com.arasfon.uni.sem5.drivenext.data.repositories.DataStoreRepositoryImpl
+import com.arasfon.uni.sem5.drivenext.domain.repositories.DataStoreRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

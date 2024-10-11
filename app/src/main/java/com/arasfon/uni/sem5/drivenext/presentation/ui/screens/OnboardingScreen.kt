@@ -164,7 +164,11 @@ fun PagerSection(
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text(text.first, style = MaterialTheme.typography.titleLarge)
+                Text(
+                    text = text.first,
+                    style = MaterialTheme.typography.titleLarge
+                )
+
                 Text(text.second)
             }
         }

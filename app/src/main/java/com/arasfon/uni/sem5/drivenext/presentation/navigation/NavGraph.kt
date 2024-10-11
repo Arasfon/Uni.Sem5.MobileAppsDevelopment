@@ -10,7 +10,10 @@ import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SplashScreen
 
 @Composable
 fun NavGraph(navController: NavHostController, startDestination: String) {
-    NavHost(navController, startDestination = startDestination) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
         composable(Screen.Splash.route) {
             SplashScreen(
                 onNavigateToOnboardingScreen = {

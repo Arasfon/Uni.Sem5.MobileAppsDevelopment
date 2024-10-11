@@ -128,7 +128,7 @@ fun PagerSection(
 ) {
     HorizontalPager(
         pagerState,
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         userScrollEnabled = false
     ) { page ->
         Column(
@@ -188,7 +188,7 @@ fun BottomNavigation(
     onNextClick: () -> Unit
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(

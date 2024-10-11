@@ -39,33 +39,28 @@ fun NoConnectionScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(3f),
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
                 ) {
-                    Column(
+                    Image(
+                        modifier = Modifier
+                            .height(100.dp)
+                            .align(Alignment.CenterHorizontally),
+                        painter = painterResource(R.drawable.no_connection),
+                        contentDescription = null
+                    )
+
+                    Text(
                         modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Image(
-                            modifier = Modifier
-                                .height(100.dp)
-                                .align(Alignment.CenterHorizontally),
-                            painter = painterResource(R.drawable.no_connection),
-                            contentDescription = null
-                        )
+                        text = stringResource(R.string.no_connection_title),
+                        style = MaterialTheme.typography.titleLarge,
+                        textAlign = TextAlign.Center
+                    )
 
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = stringResource(R.string.no_connection_title),
-                            style = MaterialTheme.typography.titleLarge,
-                            textAlign = TextAlign.Center
-                        )
-
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = stringResource(R.string.no_connection_subtitle),
-                            textAlign = TextAlign.Center
-                        )
-                    }
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(R.string.no_connection_subtitle),
+                        textAlign = TextAlign.Center
+                    )
                 }
 
                 Column(

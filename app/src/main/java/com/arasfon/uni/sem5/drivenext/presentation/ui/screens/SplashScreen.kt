@@ -51,32 +51,29 @@ fun SplashScreen(
                 .padding(horizontal = 24.dp)
                 .fillMaxSize()
         ) {
-            Column {
-                Box(
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
-                    contentAlignment = Alignment.CenterStart
+                    verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
                 ) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.app_name),
-                            style = MaterialTheme.typography.titleLarge
-                        )
-                        Text(
-                            text = stringResource(R.string.splash_subtitle)
-                        )
-                    }
+                    Text(
+                        text = stringResource(R.string.app_name),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Text(stringResource(R.string.splash_subtitle))
                 }
 
-                Box(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(2f)
                 ) {
                     Image(
+                        modifier = Modifier.fillMaxWidth(),
                         painter = painterResource(R.drawable.greeting),
                         contentDescription = null
                     )

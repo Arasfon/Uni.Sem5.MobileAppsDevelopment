@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arasfon.uni.sem5.drivenext.domain.usecases.SetIsOnboardingCompleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,8 +21,8 @@ class OnboardingViewModel @Inject constructor(
     private val _currentPage = MutableStateFlow(0)
     val currentPage: StateFlow<Int> = _currentPage.asStateFlow()
 
-    private val _navigationEvent = MutableSharedFlow<NavigationEvent>()
-    val navigationEvent = _navigationEvent.asSharedFlow()
+    private val _navigationEvent = Channel<NavigationEvent>(Channel.BUFFERED)
+    val navigationEvent = _navigationEvent.receiveAsFlow()
 
     fun onNextClicked() {
         if (_currentPage.value < pageCount - 1) {
@@ -39,7 +39,7 @@ class OnboardingViewModel @Inject constructor(
     private fun completeOnboarding() {
         viewModelScope.launch {
             setIsOnboardingCompleteUseCase(true)
-            _navigationEvent.emit(NavigationEvent.FinishOnboarding)
+            _navigationEvent.send(NavigationEvent.FinishOnboarding)
         }
     }
 

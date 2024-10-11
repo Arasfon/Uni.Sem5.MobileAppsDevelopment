@@ -55,14 +55,13 @@ fun OnboardingScreen(
         pagerState.animateScrollToPage(currentPage)
     }
 
-    val navigationEvent = viewModel.navigationEvent.collectAsState(initial = null)
-
-    LaunchedEffect(navigationEvent.value) {
-        when (navigationEvent.value) {
-            OnboardingViewModel.NavigationEvent.FinishOnboarding -> {
-                onFinish()
+    LaunchedEffect(Unit) {
+        viewModel.navigationEvent.collect { event ->
+            when (event) {
+                OnboardingViewModel.NavigationEvent.FinishOnboarding -> {
+                    onFinish()
+                }
             }
-            else -> {}
         }
     }
 

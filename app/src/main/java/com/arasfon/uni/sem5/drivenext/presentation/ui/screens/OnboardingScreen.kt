@@ -47,9 +47,9 @@ fun OnboardingScreen(
 ) {
     val viewModel: OnboardingViewModel = hiltViewModel()
 
-    val pagerState = rememberPagerState { viewModel.pageCount }
-
     val currentPage by viewModel.currentPage.collectAsState()
+
+    val pagerState = rememberPagerState(initialPage = currentPage) { viewModel.pageCount }
 
     LaunchedEffect(currentPage) {
         pagerState.animateScrollToPage(currentPage)

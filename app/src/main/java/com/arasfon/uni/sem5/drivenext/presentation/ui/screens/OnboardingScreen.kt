@@ -35,6 +35,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.flowWithLifecycle
 import com.arasfon.uni.sem5.drivenext.R
 import com.arasfon.uni.sem5.drivenext.common.theme.Accent
 import com.arasfon.uni.sem5.drivenext.common.theme.DriveNextButton
@@ -47,6 +49,8 @@ fun OnboardingScreen(
 ) {
     val viewModel: OnboardingViewModel = hiltViewModel()
 
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     val currentPage by viewModel.currentPage.collectAsState()
 
     val pagerState = rememberPagerState(initialPage = currentPage) { viewModel.pageCount }
@@ -56,7 +60,9 @@ fun OnboardingScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.navigationEvent.collect { event ->
+        viewModel.navigationEvent
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .collect { event ->
             when (event) {
                 OnboardingViewModel.NavigationEvent.FinishOnboarding -> {
                     onFinish()

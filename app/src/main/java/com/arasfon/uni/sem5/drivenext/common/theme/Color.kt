@@ -10,7 +10,7 @@ val Accent = Color(0xFF2A1246)
 
 val ContainerBackground = Color(0xFFF9F5FF)
 
-val OutlineContainerStroke = Color(0xFF181818)
-val OutlineContainerBackground = Color(0xFFFFFFFF)
+val OutlinedContainerStroke = Color(0xFF181818)
+val OutlinedContainerBackground = Background
 
 val Error = Color(0xFFF04438)

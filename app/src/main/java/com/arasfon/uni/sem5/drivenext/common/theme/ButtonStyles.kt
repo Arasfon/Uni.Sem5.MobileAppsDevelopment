@@ -20,7 +20,7 @@ fun DriveNextButton(
     Button(
         modifier = modifier,
         onClick = onClick,
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(12.dp),
         contentPadding = contentPadding,
         content = content)
 }
@@ -35,7 +35,7 @@ fun DriveNextTextButton(
     TextButton(
         modifier = modifier,
         onClick = onClick,
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(12.dp),
         contentPadding = contentPadding,
         content = content)
 }
@@ -50,7 +50,7 @@ fun DriveNextOutlinedButton(
     OutlinedButton(
         modifier = modifier,
         onClick = onClick,
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(12.dp),
         contentPadding = contentPadding,
         content = content)
 }

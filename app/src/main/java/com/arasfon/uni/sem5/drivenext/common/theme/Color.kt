@@ -7,6 +7,7 @@ val LightText = Color(0xFFF5F5F5)
 val Background = Color(0xFFF5F5F5)
 
 val Accent = Color(0xFF2A1246)
+val Secondary = Color(0xFFD0D5DD)
 
 val ContainerBackground = Color(0xFFF9F5FF)
 

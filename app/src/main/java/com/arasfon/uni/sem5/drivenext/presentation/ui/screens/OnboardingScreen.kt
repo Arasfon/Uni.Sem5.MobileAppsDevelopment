@@ -201,13 +201,15 @@ fun BottomNavigation(
                 val targetWidth = if (isSelected) 36.dp else 16.dp
                 val animatedWidth by animateDpAsState(
                     targetValue = targetWidth,
-                    animationSpec = tween(durationMillis = 300)
+                    animationSpec = tween(durationMillis = 300),
+                    label = "CurrentPageIndicatorWidthAnimation"
                 )
 
                 val targetColor = if (isSelected) Accent else Secondary
                 val animatedColor by animateColorAsState(
                     targetValue = targetColor,
-                    animationSpec = tween(durationMillis = 300)
+                    animationSpec = tween(durationMillis = 300),
+                    label = "CurrentPageIndicatorColorAnimation"
                 )
 
                 Box(

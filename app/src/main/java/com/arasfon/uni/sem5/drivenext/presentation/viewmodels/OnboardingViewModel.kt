@@ -16,7 +16,9 @@ import javax.inject.Inject
 class OnboardingViewModel @Inject constructor(
     private val setIsOnboardingCompleteUseCase: SetIsOnboardingCompleteUseCase
 ) : ViewModel() {
-    val pageCount = 3
+    companion object {
+        const val PAGE_COUNT = 3
+    }
 
     private val _currentPage = MutableStateFlow(0)
     val currentPage: StateFlow<Int> = _currentPage.asStateFlow()
@@ -24,15 +26,15 @@ class OnboardingViewModel @Inject constructor(
     private val _navigationEvent = Channel<NavigationEvent>(Channel.BUFFERED)
     val navigationEvent = _navigationEvent.receiveAsFlow()
 
-    fun onNextClicked() {
-        if (_currentPage.value < pageCount - 1) {
+    fun navigateToNextPage() {
+        if (_currentPage.value < PAGE_COUNT - 1) {
             _currentPage.value += 1
         } else {
             finishOnboarding()
         }
     }
 
-    fun onSkipClicked() {
+    fun skipOnboarding() {
         finishOnboarding()
     }
 

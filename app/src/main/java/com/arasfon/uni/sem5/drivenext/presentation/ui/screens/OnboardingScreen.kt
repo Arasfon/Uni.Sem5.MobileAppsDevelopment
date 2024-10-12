@@ -53,7 +53,7 @@ fun OnboardingScreen(
 
     val currentPage by viewModel.currentPage.collectAsState()
 
-    val pagerState = rememberPagerState(initialPage = currentPage) { viewModel.pageCount }
+    val pagerState = rememberPagerState(initialPage = currentPage) { OnboardingViewModel.PAGE_COUNT }
 
     LaunchedEffect(currentPage) {
         pagerState.animateScrollToPage(currentPage)
@@ -87,7 +87,7 @@ fun OnboardingScreen(
                     modifier = Modifier
                         .align(Alignment.End)
                         .padding(end = 24.dp),
-                    onClick = { viewModel.onSkipClicked() }
+                    onClick = { viewModel.skipOnboarding() }
                 ) {
                     Text(stringResource(R.string.skip))
                 }
@@ -112,8 +112,8 @@ fun OnboardingScreen(
                             .padding(horizontal = 24.dp)
                             .fillMaxWidth(),
                         currentPage = currentPage,
-                        pageCount = viewModel.pageCount,
-                        onNextClick = { viewModel.onNextClicked() }
+                        pageCount = OnboardingViewModel.PAGE_COUNT,
+                        onNextClick = { viewModel.navigateToNextPage() }
                     )
                 }
             }

@@ -28,15 +28,15 @@ class OnboardingViewModel @Inject constructor(
         if (_currentPage.value < pageCount - 1) {
             _currentPage.value += 1
         } else {
-            completeOnboarding()
+            finishOnboarding()
         }
     }
 
     fun onSkipClicked() {
-        completeOnboarding()
+        finishOnboarding()
     }
 
-    private fun completeOnboarding() {
+    private fun finishOnboarding() {
         viewModelScope.launch {
             setIsOnboardingCompleteUseCase(true)
             _navigationEvent.send(NavigationEvent.FinishOnboarding)

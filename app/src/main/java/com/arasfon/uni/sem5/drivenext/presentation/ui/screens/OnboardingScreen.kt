@@ -26,7 +26,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.arasfon.uni.sem5.drivenext.R
 import com.arasfon.uni.sem5.drivenext.common.theme.Accent
@@ -51,7 +51,7 @@ fun OnboardingScreen(
 
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    val currentPage by viewModel.currentPage.collectAsState()
+    val currentPage by viewModel.currentPage.collectAsStateWithLifecycle()
 
     val pagerState = rememberPagerState(initialPage = currentPage) { OnboardingViewModel.PAGE_COUNT }
 

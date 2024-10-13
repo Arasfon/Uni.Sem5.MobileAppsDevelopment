@@ -15,6 +15,7 @@ fun DriveNextButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(32.dp, 16.dp),
+    enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit
 ) {
     Button(
@@ -22,6 +23,7 @@ fun DriveNextButton(
         onClick = onClick,
         shape = RoundedCornerShape(12.dp),
         contentPadding = contentPadding,
+        enabled = enabled,
         content = content)
 }
 
@@ -30,6 +32,7 @@ fun DriveNextTextButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(32.dp, 16.dp),
+    enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit
 ) {
     TextButton(
@@ -37,6 +40,7 @@ fun DriveNextTextButton(
         onClick = onClick,
         shape = RoundedCornerShape(12.dp),
         contentPadding = contentPadding,
+        enabled = enabled,
         content = content)
 }
 
@@ -45,6 +49,7 @@ fun DriveNextOutlinedButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(32.dp, 16.dp),
+    enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit
 ) {
     OutlinedButton(
@@ -52,5 +57,6 @@ fun DriveNextOutlinedButton(
         onClick = onClick,
         shape = RoundedCornerShape(12.dp),
         contentPadding = contentPadding,
+        enabled = enabled,
         content = content)
 }

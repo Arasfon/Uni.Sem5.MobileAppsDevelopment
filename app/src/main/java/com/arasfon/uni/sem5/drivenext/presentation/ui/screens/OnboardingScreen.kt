@@ -196,28 +196,9 @@ fun BottomNavigation(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             for (i in 0 until pageCount) {
-                val isSelected = i == currentPage
-
-                val targetWidth = if (isSelected) 36.dp else 16.dp
-                val animatedWidth by animateDpAsState(
-                    targetValue = targetWidth,
-                    animationSpec = tween(durationMillis = 300),
-                    label = "CurrentPageIndicatorWidthAnimation"
-                )
-
-                val targetColor = if (isSelected) Accent else Secondary
-                val animatedColor by animateColorAsState(
-                    targetValue = targetColor,
-                    animationSpec = tween(durationMillis = 300),
-                    label = "CurrentPageIndicatorColorAnimation"
-                )
-
-                Box(
-                    modifier = Modifier
-                        .width(animatedWidth)
-                        .height(8.dp)
-                        .background(animatedColor, RoundedCornerShape(8.dp))
-                        .align(Alignment.CenterVertically)
+                PagerIndicator(
+                    Modifier.align(Alignment.CenterVertically),
+                    isSelected = i == currentPage
                 )
             }
         }
@@ -233,4 +214,31 @@ fun BottomNavigation(
             })
         }
     }
+}
+
+@Composable
+fun PagerIndicator(
+    modifier: Modifier = Modifier,
+    isSelected: Boolean
+) {
+    val targetWidth = if (isSelected) 36.dp else 16.dp
+    val animatedWidth by animateDpAsState(
+        targetValue = targetWidth,
+        animationSpec = tween(durationMillis = 300),
+        label = "CurrentPageIndicatorWidthAnimation"
+    )
+
+    val targetColor = if (isSelected) Accent else Secondary
+    val animatedColor by animateColorAsState(
+        targetValue = targetColor,
+        animationSpec = tween(durationMillis = 300),
+        label = "CurrentPageIndicatorColorAnimation"
+    )
+
+    Box(
+        modifier = modifier
+            .width(animatedWidth)
+            .height(8.dp)
+            .background(animatedColor, RoundedCornerShape(8.dp))
+    )
 }

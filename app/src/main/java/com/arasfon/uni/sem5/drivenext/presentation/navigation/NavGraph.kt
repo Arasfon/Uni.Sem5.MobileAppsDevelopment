@@ -9,6 +9,7 @@ import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.AuthOptionsScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.MainScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.NoConnectionScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.OnboardingScreen
+import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SignUpScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SplashScreen
 
 @Composable
@@ -47,8 +48,15 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
         composable(Screen.AuthOptions.route) {
             AuthOptionsScreen(
                 onNavigateToSignInScreen = { },
-                onNavigateToSignUpScreen = { }
+                onNavigateToSignUpScreen = {
+                    navController.navigate(Screen.SignUp.route) {
+                        launchSingleTop = true
+                    }
+                }
             )
+        }
+        composable(Screen.SignUp.route) {
+            SignUpScreen()
         }
     }
 }

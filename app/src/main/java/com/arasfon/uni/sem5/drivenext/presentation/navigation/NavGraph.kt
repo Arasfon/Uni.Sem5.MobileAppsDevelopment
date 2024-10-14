@@ -9,6 +9,7 @@ import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.AuthOptionsScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.MainScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.NoConnectionScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.OnboardingScreen
+import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SignInScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SignUpScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SplashScreen
 
@@ -47,8 +48,28 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
         }
         composable(Screen.AuthOptions.route) {
             AuthOptionsScreen(
-                onNavigateToSignInScreen = { },
+                onNavigateToSignInScreen = {
+                    navController.navigate(Screen.SignIn.route) {
+                        launchSingleTop = true
+                    }
+                },
                 onNavigateToSignUpScreen = {
+                    navController.navigate(Screen.SignUp.route) {
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+        composable(Screen.SignIn.route) {
+            SignInScreen(
+                onSignInSuccessful = {
+                    navController.navigateClearingBackStack(Screen.Main.route)
+                },
+                onPasswordForgot = {
+                    TODO("Forgot password")
+                },
+                onNavigateToSignUpScreen = {
+                    navController.popBackStack()
                     navController.navigate(Screen.SignUp.route) {
                         launchSingleTop = true
                     }

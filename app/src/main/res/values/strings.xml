@@ -15,4 +15,17 @@
     <string name="no_connection_retry">Повторить попытку</string>
     <string name="sign_up">Зарегистрироваться</string>
     <string name="sign_in">Войти</string>
+    <string name="sign_in_with_google">Войти через Google</string>
+    <string name="auth_forgot_password_question">Забыли пароль?</string>
+    <string name="auth_hide_password">Скрыть пароль</string>
+    <string name="auth_show_password">Показать пароль</string>
+    <string name="auth_invalid_email">Некорректный адрес электронной почты</string>
+    <string name="auth_enter_email">Введите электронную почту</string>
+    <string name="auth_email_label">Электронная почта</string>
+    <string name="auth_sign_in_subtitle">Пожалуйста, введите свои данные</string>
+    <string name="auth_sign_in_title">Войдите в аккаунт</string>
+    <string name="auth_enter_password">Введите пароль</string>
+    <string name="auth_password_label">Пароль</string>
+    <string name="auth_sign_in_password_empty">Пароль не может быть пустым</string>
+    <string name="auth_sign_in_no_account">Пользователя с данной электронной почтой и паролем не существует</string>
 </resources>

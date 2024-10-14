@@ -1,5 +1,6 @@
 package com.arasfon.uni.sem5.drivenext.presentation.ui.screens
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -207,11 +208,16 @@ fun BottomNavigation(
             modifier = Modifier.align(Alignment.CenterVertically),
             onClick = onNextClick
         ) {
-            Text(text = if (currentPage == pageCount - 1) {
-                stringResource(R.string.onboarding_finish)
-            } else {
-                stringResource(R.string.onboarding_continue)
-            })
+            AnimatedContent(
+                targetState = currentPage == pageCount - 1,
+                label = "ContinueButtonContentAnimation"
+            ) { isFinalPage ->
+                if (!isFinalPage) {
+                    Text(stringResource(R.string.onboarding_continue))
+                } else {
+                    Text(stringResource(R.string.onboarding_finish))
+                }
+            }
         }
     }
 }

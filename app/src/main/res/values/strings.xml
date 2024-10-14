@@ -13,4 +13,6 @@
     <string name="no_connection_title">Нет подключения\nк интернету</string>
     <string name="no_connection_subtitle">Проверьте подключение и повторите попытку</string>
     <string name="no_connection_retry">Повторить попытку</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="sign_in">Войти</string>
 </resources>

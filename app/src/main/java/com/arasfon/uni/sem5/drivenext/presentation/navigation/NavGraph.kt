@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.AuthOptionsScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.MainScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.NoConnectionScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.OnboardingScreen
@@ -28,7 +29,7 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
         composable(Screen.Onboarding.route) {
             OnboardingScreen(
                 onFinish = {
-                    navController.navigateClearingBackStack(Screen.Main.route)
+                    navController.navigateClearingBackStack(Screen.AuthOptions.route)
                 }
             )
         }
@@ -37,6 +38,12 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
         }
         composable(Screen.NoConnection.route) {
             NoConnectionScreen()
+        }
+        composable(Screen.AuthOptions.route) {
+            AuthOptionsScreen(
+                onNavigateToSignInScreen = { },
+                onNavigateToSignUpScreen = { }
+            )
         }
     }
 }

@@ -304,7 +304,7 @@ fun PasswordTextField(
                     enabled = enabled
                 ) {
                     Icon(
-                        imageVector  = image,
+                        imageVector = image,
                         contentDescription = contentDescription
                     )
                 }

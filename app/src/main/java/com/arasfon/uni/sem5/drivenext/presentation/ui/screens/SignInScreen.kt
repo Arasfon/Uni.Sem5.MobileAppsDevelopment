@@ -192,7 +192,7 @@ fun EmailTextField(
     enabled: Boolean = true
 ) {
     val shouldShowError by viewModel.emailField.shouldShowError.collectAsStateWithLifecycle()
-    val validationError by viewModel.emailField.lastDisplayError.collectAsStateWithLifecycle();
+    val validationError by viewModel.emailField.lastDisplayError.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier.fillMaxWidth(),

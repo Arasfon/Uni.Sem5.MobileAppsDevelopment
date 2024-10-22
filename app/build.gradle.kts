@@ -1,3 +1,12 @@
+import java.io.FileInputStream
+import java.util.Properties
+
+val debugKeystoreProperties = Properties()
+debugKeystoreProperties.load(FileInputStream(rootProject.file("debug.keystore.properties")))
+
+val releaseKeystoreProperties = Properties()
+releaseKeystoreProperties.load(FileInputStream(rootProject.file("release.keystore.properties")))
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -23,6 +32,21 @@ android {
         }
     }
 
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file(debugKeystoreProperties["storeFilePath"] as String)
+            storePassword = debugKeystoreProperties["storePassword"] as String
+            keyAlias = debugKeystoreProperties["keyAlias"] as String
+            keyPassword = debugKeystoreProperties["keyPassword"] as String
+        }
+        create("release") {
+            storeFile = file(releaseKeystoreProperties["storeFilePath"] as String)
+            storePassword = releaseKeystoreProperties["storePassword"] as String
+            keyAlias = releaseKeystoreProperties["keyAlias"] as String
+            keyPassword = releaseKeystoreProperties["keyPassword"] as String
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -30,21 +54,31 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
+        }
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
+
     kotlinOptions {
         jvmTarget = "21"
     }
+
     buildFeatures {
         compose = true
+        buildConfig = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.15"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -53,7 +87,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

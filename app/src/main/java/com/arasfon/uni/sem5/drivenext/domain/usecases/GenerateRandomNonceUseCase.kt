@@ -5,7 +5,7 @@ import java.security.MessageDigest
 import java.util.UUID
 import javax.inject.Inject
 
-class GetRandomNonceUseCase @Inject constructor() {
+class GenerateRandomNonceUseCase @Inject constructor() {
     operator fun invoke() : RandomNonce {
         val rawNonce = generateRandomNonce()
         val hashedNonce = hashNonce(rawNonce)

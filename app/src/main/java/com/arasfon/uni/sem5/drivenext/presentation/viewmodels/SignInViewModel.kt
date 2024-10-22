@@ -9,7 +9,7 @@ import com.arasfon.uni.sem5.drivenext.BuildConfig
 import com.arasfon.uni.sem5.drivenext.domain.models.RandomNonce
 import com.arasfon.uni.sem5.drivenext.domain.models.validation.EmailFieldValidationError
 import com.arasfon.uni.sem5.drivenext.domain.models.validation.ValidationResult
-import com.arasfon.uni.sem5.drivenext.domain.usecases.GetRandomNonceUseCase
+import com.arasfon.uni.sem5.drivenext.domain.usecases.GenerateRandomNonceUseCase
 import com.arasfon.uni.sem5.drivenext.domain.usecases.ValidateEmailFieldUseCase
 import com.arasfon.uni.sem5.drivenext.domain.usecases.ValidatePasswordFieldUseCase
 import com.arasfon.uni.sem5.drivenext.presentation.util.ValidatableField
@@ -40,7 +40,7 @@ class SignInViewModel @Inject constructor(
     private val supabaseClient: SupabaseClient,
     private val validateEmailFieldUseCase: ValidateEmailFieldUseCase,
     private val validatePasswordFieldUseCase: ValidatePasswordFieldUseCase,
-    private val getRandomNonceUseCase: GetRandomNonceUseCase
+    private val generateRandomNonceUseCase: GenerateRandomNonceUseCase
 ) : ViewModel() {
     private val _navigationEvent = Channel<NavigationEvent>(Channel.BUFFERED)
     val navigationEvent = _navigationEvent.receiveAsFlow()
@@ -143,7 +143,7 @@ class SignInViewModel @Inject constructor(
     }
 
     fun getRandomNonce(): RandomNonce {
-        return getRandomNonceUseCase()
+        return generateRandomNonceUseCase()
     }
 
     sealed class NavigationEvent {

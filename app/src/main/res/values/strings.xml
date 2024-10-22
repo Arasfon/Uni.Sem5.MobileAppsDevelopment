@@ -28,4 +28,5 @@
     <string name="auth_password_label">Пароль</string>
     <string name="auth_sign_in_password_empty">Пароль не может быть пустым</string>
     <string name="auth_sign_in_no_account">Пользователя с данной электронной почтой и паролем не существует</string>
+    <string name="auth_sign_in_google_error">Ошибка аутентификации через Google</string>
 </resources>

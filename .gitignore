@@ -1,4 +1,6 @@
 ## Custom files
+debug.properties
+release.properties
 *.keystore.properties
 
 *.iml

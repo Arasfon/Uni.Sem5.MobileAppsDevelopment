@@ -5,3 +5,9 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
     id("com.google.dagger.hilt.android") version "2.52" apply false
 }
+
+buildscript {
+    dependencies {
+        classpath(libs.secrets.gradle.plugin)
+    }
+}

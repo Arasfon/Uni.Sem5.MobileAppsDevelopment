@@ -7,9 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arasfon.uni.sem5.drivenext.BuildConfig
 import com.arasfon.uni.sem5.drivenext.domain.models.RandomNonce
+import com.arasfon.uni.sem5.drivenext.domain.models.validation.EmailFieldValidationError
+import com.arasfon.uni.sem5.drivenext.domain.models.validation.ValidationResult
 import com.arasfon.uni.sem5.drivenext.domain.usecases.GetRandomNonceUseCase
+import com.arasfon.uni.sem5.drivenext.domain.usecases.ValidateEmailFieldUseCase
+import com.arasfon.uni.sem5.drivenext.domain.usecases.ValidatePasswordFieldUseCase
 import com.arasfon.uni.sem5.drivenext.presentation.util.ValidatableField
-import com.arasfon.uni.sem5.drivenext.presentation.util.ValidationState
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
@@ -35,25 +38,22 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val supabaseClient: SupabaseClient,
+    private val validateEmailFieldUseCase: ValidateEmailFieldUseCase,
+    private val validatePasswordFieldUseCase: ValidatePasswordFieldUseCase,
     private val getRandomNonceUseCase: GetRandomNonceUseCase
 ) : ViewModel() {
-
-    companion object {
-        private val emailRegex: Regex = Regex("""(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])""")
-    }
-
     private val _navigationEvent = Channel<NavigationEvent>(Channel.BUFFERED)
     val navigationEvent = _navigationEvent.receiveAsFlow()
 
     val emailField = ValidatableField(
         initialValue = "",
-        validation = { validateEmail(it) },
+        validation = { validateEmailFieldUseCase(it) },
         scope = viewModelScope
     )
 
     val passwordField = ValidatableField(
         initialValue = "",
-        validation = { validatePassword(it) },
+        validation = { validatePasswordFieldUseCase(it) },
         scope = viewModelScope
     )
 
@@ -71,7 +71,7 @@ class SignInViewModel @Inject constructor(
             val emailValidationState = emailField.actualValidationState.first()
             val passwordValidationState = passwordField.actualValidationState.first()
 
-            if (emailValidationState !is ValidationState.Valid || passwordValidationState !is ValidationState.Valid) {
+            if (emailValidationState !is ValidationResult.Valid || passwordValidationState !is ValidationResult.Valid) {
                 return@launch
             }
 
@@ -83,7 +83,7 @@ class SignInViewModel @Inject constructor(
                     password = passwordField.value
                 }
             } catch (e: RestException) {
-                emailField.forceDisplayError(EmailValidationError.WrongCredentials)
+                emailField.forceDisplayError(EmailFieldValidationError.WrongCredentials)
             } catch (e: HttpRequestTimeoutException) {
                 // TODO
             } catch (e: HttpRequestException) {
@@ -142,31 +142,12 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    private fun validateEmail(email: String): ValidationState<EmailValidationError> {
-        return if (email.isNotEmpty() && emailRegex.matches(email))
-            ValidationState.Valid
-        else
-            ValidationState.Invalid(EmailValidationError.InvalidEmail)
-    }
-
-    private fun validatePassword(password: String): ValidationState<Unit> {
-        return if (password.isNotEmpty())
-            ValidationState.Valid
-        else
-            ValidationState.Invalid(Unit)
-    }
-
     fun getRandomNonce(): RandomNonce {
         return getRandomNonceUseCase()
     }
 
     sealed class NavigationEvent {
         data object SignInSuccessful : NavigationEvent()
-    }
-
-    sealed class EmailValidationError {
-        data object InvalidEmail : EmailValidationError()
-        data object WrongCredentials : EmailValidationError()
     }
 
     sealed class GoogleAuthState {

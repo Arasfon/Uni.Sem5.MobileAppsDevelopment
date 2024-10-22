@@ -4,7 +4,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
-import com.arasfon.uni.sem5.drivenext.presentation.util.ValidationState.Invalid
+import com.arasfon.uni.sem5.drivenext.domain.models.validation.ValidationResult
+import com.arasfon.uni.sem5.drivenext.domain.models.validation.ValidationResult.Invalid
+import com.arasfon.uni.sem5.drivenext.domain.models.validation.Validator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +30,7 @@ import kotlinx.coroutines.flow.stateIn
 @OptIn(ExperimentalCoroutinesApi::class)
 class ValidatableField<TValue, TError>(
     initialValue: TValue,
-    private val validation: (TValue) -> ValidationState<TError>,
+    private val validation: Validator<TValue, TError>,
     private val scope: CoroutineScope
 ) {
     /**
@@ -46,7 +48,7 @@ class ValidatableField<TValue, TError>(
      * Automatically revalidates whenever [value] changes.
      * Does not take display validation error into account.
      */
-    val actualValidationState: StateFlow<ValidationState<TError>> =
+    val actualValidationState: StateFlow<ValidationResult<TError>> =
         snapshotFlow { value }
             .mapLatest { validation(it) }
             .distinctUntilChanged()
@@ -61,7 +63,7 @@ class ValidatableField<TValue, TError>(
      * validation errors. Automatically revalidates whenever [value] changes
      * or when a display error is forced.
      */
-    val displayValidationState: StateFlow<ValidationState<TError>> =
+    val displayValidationState: StateFlow<ValidationResult<TError>> =
         combine(
             actualValidationState,
             _forcedValidationError
@@ -78,13 +80,13 @@ class ValidatableField<TValue, TError>(
 
     /**
      * A [StateFlow] that emits the latest validation error whenever it changes.
-     * Does not emit when [actualValidationState] is [ValidationState.Valid], so the last error
+     * Does not emit when [actualValidationState] is [ValidationResult.Valid], so the last error
      * is persisted.
      */
     val lastDisplayError: StateFlow<TError?> =
         displayValidationState
             .filter { validationState ->
-                validationState !is ValidationState.Valid
+                validationState !is ValidationResult.Valid
             }
             .mapLatest { validationState ->
                 val invalidValidationState = validationState as Invalid<TError>

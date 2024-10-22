@@ -57,6 +57,7 @@ import androidx.lifecycle.flowWithLifecycle
 import com.arasfon.uni.sem5.drivenext.R
 import com.arasfon.uni.sem5.drivenext.common.theme.DriveNextButton
 import com.arasfon.uni.sem5.drivenext.common.theme.DriveNextOutlinedButton
+import com.arasfon.uni.sem5.drivenext.domain.models.validation.EmailFieldValidationError
 import com.arasfon.uni.sem5.drivenext.presentation.viewmodels.SignInViewModel
 import kotlinx.coroutines.launch
 
@@ -260,14 +261,14 @@ fun EmailTextField(
                         label = "ValidationErrorContentAnimation"
                     ) { error ->
                         when (error) {
-                            SignInViewModel.EmailValidationError.InvalidEmail -> {
+                            EmailFieldValidationError.InvalidEmail -> {
                                 Text(
                                     text = stringResource(R.string.auth_invalid_email),
                                     style = MaterialTheme.typography.labelMedium,
                                     color = MaterialTheme.colorScheme.error
                                 )
                             }
-                            SignInViewModel.EmailValidationError.WrongCredentials -> {
+                            EmailFieldValidationError.WrongCredentials -> {
                                 Text(
                                     text = stringResource(R.string.auth_sign_in_no_account),
                                     style = MaterialTheme.typography.labelMedium,

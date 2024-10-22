@@ -126,7 +126,8 @@ fun SignInScreen(
 
                     TextButton(
                         modifier = Modifier.align(Alignment.CenterHorizontally),
-                        onClick = { onPasswordForgot() }
+                        onClick = { onPasswordForgot() },
+                        enabled = false
                     ) {
                         Text(stringResource(R.string.auth_forgot_password_question))
                     }

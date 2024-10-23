@@ -7,7 +7,10 @@ sealed class Screen(
     data object Onboarding : Screen("onboarding")
     data object Main : Screen("main")
     data object NoConnection : Screen("no_connection")
-    data object AuthOptions : Screen("auth_options")
-    data object SignIn : Screen("sign_in")
-    data object SignUp : Screen("sign_up")
+
+    sealed class Auth {
+        data object AuthOptions : Screen("auth_options")
+        data object SignIn : Screen("sign_in")
+        data object SignUp : Screen("sign_up")
+    }
 }

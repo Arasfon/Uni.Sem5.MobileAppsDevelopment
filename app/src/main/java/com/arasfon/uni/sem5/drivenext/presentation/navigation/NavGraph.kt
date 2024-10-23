@@ -5,13 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.AuthOptionsScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.MainScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.NoConnectionScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.OnboardingScreen
-import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SignInScreen
-import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SignUpScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SplashScreen
+import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth.AuthOptionsScreen
+import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth.SignInScreen
+import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth.SignUpScreen
 
 @Composable
 fun NavGraph(navController: NavHostController, startDestination: String) {
@@ -36,7 +36,7 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
         composable(Screen.Onboarding.route) {
             OnboardingScreen(
                 onFinish = {
-                    navController.navigateClearingBackStack(Screen.AuthOptions.route)
+                    navController.navigateClearingBackStack(Screen.Auth.AuthOptions.route)
                 }
             )
         }
@@ -46,21 +46,21 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
         composable(Screen.NoConnection.route) {
             NoConnectionScreen()
         }
-        composable(Screen.AuthOptions.route) {
+        composable(Screen.Auth.AuthOptions.route) {
             AuthOptionsScreen(
                 onNavigateToSignInScreen = {
-                    navController.navigate(Screen.SignIn.route) {
+                    navController.navigate(Screen.Auth.SignIn.route) {
                         launchSingleTop = true
                     }
                 },
                 onNavigateToSignUpScreen = {
-                    navController.navigate(Screen.SignUp.route) {
+                    navController.navigate(Screen.Auth.SignUp.route) {
                         launchSingleTop = true
                     }
                 }
             )
         }
-        composable(Screen.SignIn.route) {
+        composable(Screen.Auth.SignIn.route) {
             SignInScreen(
                 onSignInSuccessful = {
                     navController.navigateClearingBackStack(Screen.Main.route)
@@ -70,13 +70,13 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
                 },
                 onNavigateToSignUpScreen = {
                     navController.popBackStack()
-                    navController.navigate(Screen.SignUp.route) {
+                    navController.navigate(Screen.Auth.SignUp.route) {
                         launchSingleTop = true
                     }
                 }
             )
         }
-        composable(Screen.SignUp.route) {
+        composable(Screen.Auth.SignUp.route) {
             SignUpScreen()
         }
     }

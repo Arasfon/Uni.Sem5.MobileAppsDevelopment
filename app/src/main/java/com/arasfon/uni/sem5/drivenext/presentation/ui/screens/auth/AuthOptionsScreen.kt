@@ -1,4 +1,4 @@
-package com.arasfon.uni.sem5.drivenext.presentation.ui.screens
+package com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

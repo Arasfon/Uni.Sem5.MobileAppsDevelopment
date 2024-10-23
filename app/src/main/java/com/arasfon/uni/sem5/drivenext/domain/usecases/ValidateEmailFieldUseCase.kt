@@ -1,7 +1,7 @@
 package com.arasfon.uni.sem5.drivenext.domain.usecases
 
-import com.arasfon.uni.sem5.drivenext.domain.models.validation.EmailFieldValidationError
 import com.arasfon.uni.sem5.drivenext.domain.models.validation.ValidationResult
+import com.arasfon.uni.sem5.drivenext.domain.models.validation.auth.EmailFieldValidationError
 import javax.inject.Inject
 
 class ValidateEmailFieldUseCase @Inject constructor() {

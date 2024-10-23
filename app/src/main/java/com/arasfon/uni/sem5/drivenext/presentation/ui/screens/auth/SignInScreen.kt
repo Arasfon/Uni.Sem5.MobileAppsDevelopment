@@ -1,4 +1,4 @@
-package com.arasfon.uni.sem5.drivenext.presentation.ui.screens
+package com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth
 
 import android.content.Context
 import android.widget.Toast
@@ -57,8 +57,8 @@ import androidx.lifecycle.flowWithLifecycle
 import com.arasfon.uni.sem5.drivenext.R
 import com.arasfon.uni.sem5.drivenext.common.theme.DriveNextButton
 import com.arasfon.uni.sem5.drivenext.common.theme.DriveNextOutlinedButton
-import com.arasfon.uni.sem5.drivenext.domain.models.validation.EmailFieldValidationError
-import com.arasfon.uni.sem5.drivenext.presentation.viewmodels.SignInViewModel
+import com.arasfon.uni.sem5.drivenext.domain.models.validation.auth.EmailFieldValidationError
+import com.arasfon.uni.sem5.drivenext.presentation.viewmodels.auth.SignInViewModel
 import kotlinx.coroutines.launch
 
 @Composable

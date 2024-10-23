@@ -1,4 +1,4 @@
-package com.arasfon.uni.sem5.drivenext.presentation.viewmodels
+package com.arasfon.uni.sem5.drivenext.presentation.viewmodels.auth
 
 import android.util.Log
 import androidx.credentials.GetCredentialRequest
@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arasfon.uni.sem5.drivenext.BuildConfig
 import com.arasfon.uni.sem5.drivenext.domain.models.RandomNonce
-import com.arasfon.uni.sem5.drivenext.domain.models.validation.EmailFieldValidationError
 import com.arasfon.uni.sem5.drivenext.domain.models.validation.ValidationResult
+import com.arasfon.uni.sem5.drivenext.domain.models.validation.auth.EmailFieldValidationError
 import com.arasfon.uni.sem5.drivenext.domain.usecases.GenerateRandomNonceUseCase
 import com.arasfon.uni.sem5.drivenext.domain.usecases.ValidateEmailFieldUseCase
 import com.arasfon.uni.sem5.drivenext.domain.usecases.ValidatePasswordFieldUseCase

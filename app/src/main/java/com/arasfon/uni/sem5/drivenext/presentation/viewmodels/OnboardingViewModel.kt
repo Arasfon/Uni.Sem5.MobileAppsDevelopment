@@ -20,11 +20,11 @@ class OnboardingViewModel @Inject constructor(
         const val PAGE_COUNT = 3
     }
 
-    private val _currentPage = MutableStateFlow(0)
-    val currentPage: StateFlow<Int> = _currentPage.asStateFlow()
-
     private val _navigationEvent = Channel<NavigationEvent>(Channel.BUFFERED)
     val navigationEvent = _navigationEvent.receiveAsFlow()
+
+    private val _currentPage = MutableStateFlow(0)
+    val currentPage: StateFlow<Int> = _currentPage.asStateFlow()
 
     fun navigateToNextPage() {
         if (_currentPage.value < PAGE_COUNT - 1) {

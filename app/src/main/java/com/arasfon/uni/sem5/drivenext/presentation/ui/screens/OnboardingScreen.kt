@@ -39,9 +39,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.arasfon.uni.sem5.drivenext.R
-import com.arasfon.uni.sem5.drivenext.common.theme.Accent
 import com.arasfon.uni.sem5.drivenext.common.theme.DriveNextButton
-import com.arasfon.uni.sem5.drivenext.common.theme.Secondary
 import com.arasfon.uni.sem5.drivenext.presentation.viewmodels.OnboardingViewModel
 
 @Composable
@@ -234,7 +232,11 @@ fun PagerIndicator(
         label = "CurrentPageIndicatorWidthAnimation"
     )
 
-    val targetColor = if (isSelected) Accent else Secondary
+    val targetColor =
+        if (isSelected)
+            MaterialTheme.colorScheme.primary
+        else
+            MaterialTheme.colorScheme.secondary
     val animatedColor by animateColorAsState(
         targetValue = targetColor,
         animationSpec = tween(durationMillis = 300),

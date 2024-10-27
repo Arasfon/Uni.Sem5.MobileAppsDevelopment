@@ -3,7 +3,6 @@ package com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,35 +14,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material.icons.outlined.Visibility
-import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.credentials.CredentialManager
@@ -58,6 +44,8 @@ import com.arasfon.uni.sem5.drivenext.R
 import com.arasfon.uni.sem5.drivenext.common.theme.DriveNextButton
 import com.arasfon.uni.sem5.drivenext.common.theme.DriveNextOutlinedButton
 import com.arasfon.uni.sem5.drivenext.domain.models.validation.auth.EmailFieldValidationError
+import com.arasfon.uni.sem5.drivenext.presentation.util.CommonTextField
+import com.arasfon.uni.sem5.drivenext.presentation.util.PasswordTextField
 import com.arasfon.uni.sem5.drivenext.presentation.viewmodels.auth.SignInViewModel
 import kotlinx.coroutines.launch
 
@@ -136,15 +124,34 @@ fun SignInScreen(
                         .weight(2f),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    EmailTextField(
+                    CommonTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        viewModel = viewModel,
+                        field = viewModel.emailField,
+                        labelText = { stringResource(R.string.auth_email_label) },
+                        errorText = { error ->
+                            return@CommonTextField when (error) {
+                                EmailFieldValidationError.InvalidEmail -> {
+                                    stringResource(R.string.auth_invalid_email)
+                                }
+
+                                EmailFieldValidationError.WrongCredentials -> {
+                                    stringResource(R.string.auth_sign_in_no_account)
+                                }
+
+                                null -> ""
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         enabled = !signInLoading
                     )
 
                     PasswordTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        viewModel = viewModel,
+                        field = viewModel.passwordField,
+                        labelText = { stringResource(R.string.auth_password_label) },
+                        errorText = { error ->
+                            stringResource(R.string.auth_password_empty)
+                        },
                         enabled = !signInLoading
                     )
 
@@ -222,144 +229,6 @@ fun SignInScreen(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun EmailTextField(
-    modifier: Modifier = Modifier,
-    viewModel: SignInViewModel,
-    enabled: Boolean = true
-) {
-    val shouldShowError by viewModel.emailField.shouldShowError.collectAsStateWithLifecycle()
-    val validationError by viewModel.emailField.lastDisplayError.collectAsStateWithLifecycle()
-
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        Text(
-            text = stringResource(R.string.auth_email_label),
-            style = MaterialTheme.typography.labelLarge
-        )
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = viewModel.emailField.value,
-            onValueChange = { viewModel.emailField.updateValue(it) },
-            singleLine = true,
-            placeholder = {
-                Text(stringResource(R.string.auth_enter_email))
-            },
-            shape = RoundedCornerShape(12.dp),
-            enabled = enabled,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            isError = shouldShowError,
-            supportingText = {
-                AnimatedVisibility(shouldShowError) {
-                    AnimatedContent(
-                        targetState = validationError,
-                        label = "ValidationErrorContentAnimation"
-                    ) { error ->
-                        when (error) {
-                            EmailFieldValidationError.InvalidEmail -> {
-                                Text(
-                                    text = stringResource(R.string.auth_invalid_email),
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.error
-                                )
-                            }
-                            EmailFieldValidationError.WrongCredentials -> {
-                                Text(
-                                    text = stringResource(R.string.auth_sign_in_no_account),
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.error
-                                )
-                            }
-                            null -> { }
-                        }
-                    }
-                }
-            },
-            trailingIcon = {
-                if (shouldShowError) {
-                    Icon(
-                        imageVector = Icons.Outlined.ErrorOutline,
-                        contentDescription = stringResource(R.string.auth_invalid_email)
-                    )
-                }
-            }
-        )
-    }
-}
-
-@Composable
-fun PasswordTextField(
-    modifier: Modifier = Modifier,
-    viewModel: SignInViewModel,
-    enabled: Boolean = true
-) {
-    val shouldShowError by viewModel.passwordField.shouldShowError.collectAsStateWithLifecycle()
-
-    var passwordVisible by rememberSaveable { mutableStateOf(false) }
-
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        Text(
-            text = stringResource(R.string.auth_password_label),
-            style = MaterialTheme.typography.labelLarge
-        )
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = viewModel.passwordField.value,
-            onValueChange = { viewModel.passwordField.updateValue(it) },
-            singleLine = true,
-            placeholder = {
-                Text(stringResource(R.string.auth_enter_password))
-            },
-            shape = RoundedCornerShape(12.dp),
-            enabled = enabled,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            visualTransformation =
-                if (passwordVisible)
-                    VisualTransformation.None
-                else
-                    PasswordVisualTransformation(),
-            trailingIcon = {
-                val image =
-                    if (passwordVisible)
-                        Icons.Outlined.Visibility
-                    else
-                        Icons.Outlined.VisibilityOff
-
-                val contentDescription =
-                    if (passwordVisible)
-                        stringResource(R.string.auth_hide_password)
-                    else
-                        stringResource(R.string.auth_show_password)
-
-                IconButton(
-                    onClick = { passwordVisible = !passwordVisible },
-                    enabled = enabled
-                ) {
-                    Icon(
-                        imageVector = image,
-                        contentDescription = contentDescription
-                    )
-                }
-            },
-            isError = shouldShowError,
-            supportingText = {
-                AnimatedVisibility(shouldShowError) {
-                    Text(
-                        text = stringResource(R.string.auth_password_empty),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.error
-                    )
-                }
-            }
-        )
     }
 }
 

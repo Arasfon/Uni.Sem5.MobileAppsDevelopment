@@ -353,7 +353,7 @@ fun PasswordTextField(
             supportingText = {
                 AnimatedVisibility(shouldShowError) {
                     Text(
-                        text = stringResource(R.string.auth_sign_in_password_empty),
+                        text = stringResource(R.string.auth_password_empty),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.error
                     )

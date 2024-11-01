@@ -10,8 +10,8 @@ import com.arasfon.uni.sem5.drivenext.domain.models.RandomNonce
 import com.arasfon.uni.sem5.drivenext.domain.models.validation.ValidationResult
 import com.arasfon.uni.sem5.drivenext.domain.models.validation.auth.EmailFieldValidationError
 import com.arasfon.uni.sem5.drivenext.domain.usecases.GenerateRandomNonceUseCase
-import com.arasfon.uni.sem5.drivenext.domain.usecases.ValidateEmailFieldUseCase
-import com.arasfon.uni.sem5.drivenext.domain.usecases.ValidatePasswordFieldUseCase
+import com.arasfon.uni.sem5.drivenext.domain.usecases.validation.ValidateEmailFieldUseCase
+import com.arasfon.uni.sem5.drivenext.domain.usecases.validation.ValidatePasswordFieldUseCase
 import com.arasfon.uni.sem5.drivenext.presentation.util.ValidatableField
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential

@@ -1,4 +1,4 @@
-package com.arasfon.uni.sem5.drivenext.domain.usecases
+package com.arasfon.uni.sem5.drivenext.domain.usecases.validation
 
 import com.arasfon.uni.sem5.drivenext.domain.models.validation.ValidationResult
 import javax.inject.Inject

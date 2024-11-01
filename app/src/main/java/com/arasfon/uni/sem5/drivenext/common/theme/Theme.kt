@@ -14,8 +14,11 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = LightText,
     primaryContainer = ContainerBackground,
     onPrimaryContainer = DarkText,
+    secondary = Secondary,
+    onSecondary = LightText,
     background = Background,
-    onBackground = DarkText
+    onBackground = DarkText,
+    error = Error
 )
 
 @Composable

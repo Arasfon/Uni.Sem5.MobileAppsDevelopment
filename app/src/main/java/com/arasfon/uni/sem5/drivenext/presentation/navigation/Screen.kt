@@ -10,7 +10,7 @@ sealed class Screen(
 
     sealed class Auth {
         data object AuthOptions : Screen("auth_options")
-        data object SignIn : Screen("sign_in")
-        data object SignUp : Screen("sign_up")
+        data object SignIn : Screen("auth_sign_in")
+        data object SignUp : Screen("auth_sign_up")
     }
 }

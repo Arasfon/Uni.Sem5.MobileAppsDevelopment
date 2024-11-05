@@ -82,6 +82,8 @@ class SignInViewModel @Inject constructor(
                     email = emailField.value
                     password = passwordField.value
                 }
+
+                return@launch
             } catch (e: RestException) {
                 emailField.forceDisplayError(EmailFieldValidationError.WrongCredentials)
             } catch (e: HttpRequestTimeoutException) {
@@ -133,6 +135,8 @@ class SignInViewModel @Inject constructor(
                 }
 
                 _navigationEvent.send(NavigationEvent.SignInSuccessful)
+
+                return@launch
             } catch (e: Exception) {
                 Log.e("SignIn-ViewModel", e.toString())
                 _googleAuthState.emit(GoogleAuthState.Error(e))

@@ -51,6 +51,7 @@ fun<TError> CommonTextField(
     labelText: @Composable () -> String,
     errorText: @Composable (TError?) -> String,
     placeholder: @Composable (() -> Unit)? = null,
+    leadingIcon: (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     enabled: Boolean = true
 ) {
@@ -74,6 +75,7 @@ fun<TError> CommonTextField(
             shape = RoundedCornerShape(12.dp),
             enabled = enabled,
             keyboardOptions = keyboardOptions,
+            leadingIcon = leadingIcon,
             isError = shouldShowError,
             supportingText = {
                 AnimatedVisibility(shouldShowError) {

@@ -37,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -148,6 +149,7 @@ fun<TError> PasswordTextField(
     labelText: @Composable () -> String,
     errorText: @Composable (TError?) -> String,
     placeholder: @Composable (() -> Unit)? = null,
+    imeAction: ImeAction = ImeAction.Default,
     enabled: Boolean = true
 ) {
     val shouldShowError by field.shouldShowError.collectAsStateWithLifecycle()
@@ -171,7 +173,7 @@ fun<TError> PasswordTextField(
             placeholder = placeholder,
             shape = RoundedCornerShape(12.dp),
             enabled = enabled,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = imeAction),
             visualTransformation =
             if (passwordVisible)
                 VisualTransformation.None

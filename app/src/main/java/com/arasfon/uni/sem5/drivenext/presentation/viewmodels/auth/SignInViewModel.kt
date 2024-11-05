@@ -83,6 +83,8 @@ class SignInViewModel @Inject constructor(
                     password = passwordField.value
                 }
 
+                _navigationEvent.send(NavigationEvent.SignInSuccessful)
+
                 return@launch
             } catch (e: RestException) {
                 emailField.forceDisplayError(EmailFieldValidationError.WrongCredentials)

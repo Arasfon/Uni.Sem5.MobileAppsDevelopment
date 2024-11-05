@@ -149,6 +149,8 @@ fun<TError> PasswordTextField(
     field: ValidatableField<String, TError>,
     labelText: @Composable () -> String,
     errorText: @Composable (TError?) -> String,
+    maxLength: Int? = null,
+    hideMaxLength: Boolean = false,
     placeholder: @Composable (() -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Default,
     enabled: Boolean = true
@@ -169,7 +171,12 @@ fun<TError> PasswordTextField(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = field.value,
-            onValueChange = { field.updateValue(it) },
+            onValueChange = {
+                if (maxLength != null)
+                    field.updateValue(it.take(maxLength))
+                else
+                    field.updateValue(it)
+            },
             singleLine = true,
             placeholder = placeholder,
             shape = RoundedCornerShape(12.dp),
@@ -205,19 +212,48 @@ fun<TError> PasswordTextField(
             },
             isError = shouldShowError,
             supportingText = {
-                AnimatedVisibility(shouldShowError) {
-                    AnimatedContent(
-                        targetState = validationError,
-                        label = "ValidationErrorContentAnimation"
-                    ) { error ->
-                        Text(
-                            text = errorText(error),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.error
-                        )
+                if (maxLength != null && !hideMaxLength) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        AnimatedVisibility(shouldShowError) {
+                            AnimatedContent(
+                                targetState = validationError,
+                                label = "ValidationErrorContentAnimation"
+                            ) { error ->
+                                Text(
+                                    modifier = Modifier.weight(1f),
+                                    text = errorText(error),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            }
+                        }
+
+                        Box(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                modifier = Modifier.align(Alignment.TopEnd),
+                                text = "${field.value.length}/$maxLength"
+                            )
+                        }
+                    }
+                } else {
+                    AnimatedVisibility(shouldShowError) {
+                        AnimatedContent(
+                            targetState = validationError,
+                            label = "ValidationErrorContentAnimation"
+                        ) { error ->
+                            Text(
+                                text = errorText(error),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
                     }
                 }
-            }
+            },
         )
     }
 }

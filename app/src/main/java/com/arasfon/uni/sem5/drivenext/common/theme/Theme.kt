@@ -12,12 +12,20 @@ import androidx.core.view.WindowCompat
 private val LightColorScheme = lightColorScheme(
     primary = Accent,
     onPrimary = LightText,
-    primaryContainer = ContainerBackground,
+    primaryContainer = PrimaryContainer,
     onPrimaryContainer = DarkText,
     secondary = Secondary,
     onSecondary = LightText,
+    secondaryContainer = SecondaryContainer,
+    onSecondaryContainer = Accent,
     background = Background,
     onBackground = DarkText,
+    surface = SecondaryContainerHigh,
+    surfaceContainer = SecondaryContainer,
+    surfaceContainerHigh = SecondaryContainerHigh,
+    surfaceContainerHighest = SecondaryContainerHighest,
+    onSurfaceVariant = OnSurfaceVariant,
+    outline = OnSurfaceVariant,
     error = Error
 )
 

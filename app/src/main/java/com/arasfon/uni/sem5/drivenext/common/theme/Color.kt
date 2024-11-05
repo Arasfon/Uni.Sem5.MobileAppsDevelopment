@@ -9,9 +9,11 @@ val Background = Color(0xFFF5F5F5)
 val Accent = Color(0xFF2A1246)
 val Secondary = Color(0xFFD0D5DD)
 
-val ContainerBackground = Color(0xFFF9F5FF)
+val PrimaryContainer = Color(0xFFF9F5FF)
+val SecondaryContainer = Color(0xFFDFD1EF)
+val SecondaryContainerHigh = Color(0xFFEFE8F7)
+val SecondaryContainerHighest = Color(0xFFFAF5FF)
 
-val OutlinedContainerStroke = Color(0xFF181818)
-val OutlinedContainerBackground = Background
+val OnSurfaceVariant = Color(0xFF584E65)
 
 val Error = Color(0xFFF04438)

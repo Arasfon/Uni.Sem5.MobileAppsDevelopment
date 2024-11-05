@@ -15,5 +15,6 @@ val SecondaryContainerHigh = Color(0xFFEFE8F7)
 val SecondaryContainerHighest = Color(0xFFFAF5FF)
 
 val OnSurfaceVariant = Color(0xFF584E65)
+val OutlineVariant = Color(0xFFB1A9BC)
 
 val Error = Color(0xFFF04438)

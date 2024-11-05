@@ -26,6 +26,7 @@ private val LightColorScheme = lightColorScheme(
     surfaceContainerHighest = SecondaryContainerHighest,
     onSurfaceVariant = OnSurfaceVariant,
     outline = OnSurfaceVariant,
+    outlineVariant = OutlineVariant,
     error = Error
 )
 

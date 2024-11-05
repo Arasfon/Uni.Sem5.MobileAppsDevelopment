@@ -20,7 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -247,6 +247,6 @@ fun PagerIndicator(
         modifier = modifier
             .width(animatedWidth)
             .height(8.dp)
-            .background(animatedColor, RoundedCornerShape(8.dp))
+            .background(animatedColor, CircleShape)
     )
 }

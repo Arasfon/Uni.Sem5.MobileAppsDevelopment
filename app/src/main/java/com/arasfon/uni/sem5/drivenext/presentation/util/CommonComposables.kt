@@ -6,7 +6,9 @@ import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
@@ -50,6 +53,7 @@ fun<TError> CommonTextField(
     field: ValidatableField<String, TError>,
     labelText: @Composable () -> String,
     errorText: @Composable (TError?) -> String,
+    maxLength: Int? = null,
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -69,7 +73,12 @@ fun<TError> CommonTextField(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = field.value,
-            onValueChange = { field.updateValue(it) },
+            onValueChange = {
+                if (maxLength != null)
+                    field.updateValue(it.take(maxLength))
+                else
+                    field.updateValue(it)
+            },
             singleLine = true,
             placeholder = placeholder,
             shape = RoundedCornerShape(12.dp),
@@ -78,16 +87,45 @@ fun<TError> CommonTextField(
             leadingIcon = leadingIcon,
             isError = shouldShowError,
             supportingText = {
-                AnimatedVisibility(shouldShowError) {
-                    AnimatedContent(
-                        targetState = validationError,
-                        label = "ValidationErrorContentAnimation"
-                    ) { error ->
-                        Text(
-                            text = errorText(error),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.error
-                        )
+                if (maxLength != null) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        AnimatedVisibility(shouldShowError) {
+                            AnimatedContent(
+                                targetState = validationError,
+                                label = "ValidationErrorContentAnimation"
+                            ) { error ->
+                                Text(
+                                    modifier = Modifier.weight(1f),
+                                    text = errorText(error),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            }
+                        }
+
+                        Box(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                modifier = Modifier.align(Alignment.TopEnd),
+                                text = "${field.value.length}/$maxLength"
+                            )
+                        }
+                    }
+                } else {
+                    AnimatedVisibility(shouldShowError) {
+                        AnimatedContent(
+                            targetState = validationError,
+                            label = "ValidationErrorContentAnimation"
+                        ) { error ->
+                            Text(
+                                text = errorText(error),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
                     }
                 }
             },

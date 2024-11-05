@@ -9,14 +9,22 @@ import com.arasfon.uni.sem5.drivenext.domain.models.validation.ValidationResult.
 import com.arasfon.uni.sem5.drivenext.domain.models.validation.Validator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.onSubscription
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 /**
  * A generic class representing a validatable field
@@ -29,9 +37,10 @@ import kotlinx.coroutines.flow.stateIn
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class ValidatableField<TValue, TError>(
-    initialValue: TValue,
+    private val initialValue: TValue,
     private val validation: Validator<TValue, TError>,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    dependencies: List<Flow<*>> = listOf()
 ) {
     /**
      * The current value of the field.
@@ -39,9 +48,34 @@ class ValidatableField<TValue, TError>(
     var value by mutableStateOf(initialValue)
         private set
 
+    val valueFlow = snapshotFlow { value }
+
     private val _isInInitialState = MutableStateFlow(true)
 
     private val _forcedValidationError = MutableStateFlow<Invalid<TError>?>(null)
+
+    private val _revalidationFlow = MutableSharedFlow<Unit>(replay = 1)
+
+    private val _dependenciesFlow = MutableStateFlow(dependencies)
+        .asStateFlow()
+        .stateIn(
+            scope = scope,
+            started = SharingStarted.Lazily,
+            initialValue = listOf()
+        )
+        .flatMapLatest { flows ->
+            flows.asFlow().flattenMerge()
+        }
+
+    init {
+        scope.launch {
+            _dependenciesFlow
+                .distinctUntilChanged()
+                .collect {
+                    revalidate()
+                }
+        }
+    }
 
     /**
      * A [StateFlow] that emits actual validation state.
@@ -49,7 +83,8 @@ class ValidatableField<TValue, TError>(
      * Does not take display validation error into account.
      */
     val actualValidationState: StateFlow<ValidationResult<TError>> =
-        snapshotFlow { value }
+        valueFlow
+            .combine(_revalidationFlow.onSubscription { emit(Unit) }) { value, _ -> value}
             .mapLatest { validation(it) }
             .distinctUntilChanged()
             .stateIn(
@@ -145,8 +180,16 @@ class ValidatableField<TValue, TError>(
      * Typically called when the user attempts to perform some action that requires valid field
      * but they didn't interact with the field at all.
      */
-    fun markStateChanged() {
+    suspend fun markStateChanged() {
         _isInInitialState.value = false
         clearForcedDisplayError()
+        revalidate()
+    }
+
+    /**
+     * Forces revalidation of a field's value. Useful if validation depends on external factors.
+     */
+    suspend fun revalidate() {
+        _revalidationFlow.emit(Unit)
     }
 }

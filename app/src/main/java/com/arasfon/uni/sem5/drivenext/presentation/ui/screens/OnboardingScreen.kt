@@ -30,9 +30,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -135,10 +136,10 @@ fun PagerSection(
         ) {
             val imagesAspectRatio = 390f / 307f
 
-            val painter = when (page) {
-                0 -> painterResource(R.drawable.onboarding1)
-                1 -> painterResource(R.drawable.onboarding2)
-                2 -> painterResource(R.drawable.onboarding3)
+            val imageVector = when (page) {
+                0 -> ImageVector.vectorResource(R.drawable.onboarding1)
+                1 -> ImageVector.vectorResource(R.drawable.onboarding2)
+                2 -> ImageVector.vectorResource(R.drawable.onboarding3)
                 else -> throw IllegalArgumentException()
             }
 
@@ -146,7 +147,7 @@ fun PagerSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(imagesAspectRatio),
-                painter = painter,
+                imageVector = imageVector,
                 contentDescription = null,
                 contentScale = ContentScale.Fit
             )

@@ -55,6 +55,7 @@ fun<TError> CommonTextField(
     labelText: @Composable () -> String,
     errorText: @Composable (TError?) -> String,
     maxLength: Int? = null,
+    hideMaxLength: Boolean = false,
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -88,7 +89,7 @@ fun<TError> CommonTextField(
             leadingIcon = leadingIcon,
             isError = shouldShowError,
             supportingText = {
-                if (maxLength != null) {
+                if (maxLength != null && !hideMaxLength) {
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {

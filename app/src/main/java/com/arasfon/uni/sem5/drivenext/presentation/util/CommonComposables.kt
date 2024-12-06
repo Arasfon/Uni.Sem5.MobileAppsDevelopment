@@ -181,7 +181,11 @@ fun<TError> PasswordTextField(
             placeholder = placeholder,
             shape = RoundedCornerShape(12.dp),
             enabled = enabled,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = imeAction),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password,
+                imeAction = imeAction,
+                autoCorrectEnabled = false
+            ),
             visualTransformation =
             if (passwordVisible)
                 VisualTransformation.None

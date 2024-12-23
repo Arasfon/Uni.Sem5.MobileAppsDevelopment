@@ -19,6 +19,8 @@ credentials = "1.3.0"
 secretsGradlePlugin = "2.0.1"
 supabaseBom = "3.0.1"
 ktorClientOkhttp = "3.0.0"
+coilCompose = "3.0.0"
+coilNetworkKtor3Android = "3.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +51,8 @@ supabase-bom = { module = "io.github.jan-tennert.supabase:bom", version.ref = "s
 supabase-auth-kt = { module = "io.github.jan-tennert.supabase:auth-kt" }
 supabase-postgrest-kt = { module = "io.github.jan-tennert.supabase:postgrest-kt" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktorClientOkhttp" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose" }
+coil-network-ktor3-android = { group = "io.coil-kt.coil3", name = "coil-network-ktor3-android", version.ref = "coilNetworkKtor3Android" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

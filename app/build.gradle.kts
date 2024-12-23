@@ -113,6 +113,8 @@ dependencies {
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.androidx.credentials)
     implementation(libs.ktor.client.okhttp)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.ktor3.android)
     kapt(libs.hilt.android.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

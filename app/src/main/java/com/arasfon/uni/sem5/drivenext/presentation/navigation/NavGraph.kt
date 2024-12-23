@@ -45,7 +45,11 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
             )
         }
         composable(Screen.Main.route) {
-            MainScreen()
+            MainScreen(
+                onSignOut = {
+                    navController.navigateClearingBackStack(Screen.Auth.AuthOptions.route)
+                }
+            )
         }
         composable(Screen.NoConnection.route) {
             NoConnectionScreen()

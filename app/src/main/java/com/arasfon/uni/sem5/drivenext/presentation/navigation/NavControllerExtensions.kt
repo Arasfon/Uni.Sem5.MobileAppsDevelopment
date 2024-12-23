@@ -13,3 +13,14 @@ fun NavController.navigateClearingBackStack(route: String, optionsBuilder: NavOp
         optionsBuilder()
     }
 }
+
+fun<T: Any> NavController.navigateClearingBackStack(route: T, optionsBuilder: NavOptionsBuilder.() -> Unit = {}) {
+    this.navigate<T>(route) {
+        popUpTo(0) {
+            inclusive = true
+        }
+        launchSingleTop = true
+
+        optionsBuilder()
+    }
+}

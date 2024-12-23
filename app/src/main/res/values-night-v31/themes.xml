@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.DriveNext" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">@color/accent</item>
+        <item name="android:windowSplashScreenBackground">@color/accent</item>
+    </style>
+</resources>

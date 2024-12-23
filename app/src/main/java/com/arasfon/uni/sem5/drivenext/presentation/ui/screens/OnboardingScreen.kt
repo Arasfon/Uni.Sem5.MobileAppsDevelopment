@@ -237,7 +237,7 @@ fun PagerIndicator(
         if (isSelected)
             MaterialTheme.colorScheme.primary
         else
-            MaterialTheme.colorScheme.secondary
+            MaterialTheme.colorScheme.surfaceVariant
     val animatedColor by animateColorAsState(
         targetValue = targetColor,
         animationSpec = tween(durationMillis = 300),

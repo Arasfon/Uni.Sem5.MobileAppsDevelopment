@@ -59,6 +59,7 @@ fun<TError> CommonTextField(
     placeholder: @Composable (() -> Unit)? = null,
     leadingIcon: (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    singleLine: Boolean = true,
     enabled: Boolean = true
 ) {
     val shouldShowError by field.shouldShowError.collectAsStateWithLifecycle()
@@ -73,7 +74,7 @@ fun<TError> CommonTextField(
             style = MaterialTheme.typography.labelLarge
         )
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             value = field.value,
             onValueChange = {
                 if (maxLength != null)
@@ -81,7 +82,7 @@ fun<TError> CommonTextField(
                 else
                     field.updateValue(it)
             },
-            singleLine = true,
+            singleLine = singleLine,
             placeholder = placeholder,
             shape = RoundedCornerShape(12.dp),
             enabled = enabled,

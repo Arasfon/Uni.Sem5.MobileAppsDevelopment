@@ -27,6 +27,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(
     onNavigateToOnboardingScreen: () -> Unit,
+    onNavigateToAuthOptionsScreen: () -> Unit,
     onNavigateToMainScreen: () -> Unit
 ) {
     val viewModel: SplashViewModel = hiltViewModel()
@@ -39,10 +40,17 @@ fun SplashScreen(
         LaunchedEffect(Unit) {
             delay(3000)
 
-            if (isOnboardingComplete)
-                onNavigateToMainScreen()
-            else
+            if (!isOnboardingComplete) {
                 onNavigateToOnboardingScreen()
+                return@LaunchedEffect
+            }
+
+            // TODO: Check auth
+            if (false) {
+                onNavigateToMainScreen()
+            } else {
+                onNavigateToAuthOptionsScreen()
+            }
         }
 
         Box(

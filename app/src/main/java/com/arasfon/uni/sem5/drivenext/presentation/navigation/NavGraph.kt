@@ -12,6 +12,7 @@ import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.SplashScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth.AuthOptionsScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth.SignInScreen
 import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth.SignUpScreen
+import com.arasfon.uni.sem5.drivenext.presentation.ui.screens.auth.SignUpSuccessScreen
 
 @Composable
 fun NavGraph(navController: NavHostController, startDestination: String) {
@@ -27,6 +28,9 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
             SplashScreen(
                 onNavigateToOnboardingScreen = {
                     navController.navigateClearingBackStack(Screen.Onboarding.route)
+                },
+                onNavigateToAuthOptionsScreen = {
+                    navController.navigateClearingBackStack(Screen.Auth.AuthOptions.route)
                 },
                 onNavigateToMainScreen = {
                     navController.navigateClearingBackStack(Screen.Main.route)
@@ -77,7 +81,21 @@ fun NavGraph(navController: NavHostController, startDestination: String) {
             )
         }
         composable(Screen.Auth.SignUp.route) {
-            SignUpScreen()
+            SignUpScreen(
+                onReturnBack = {
+                    navController.popBackStack()
+                },
+                onSignUpSuccessful = {
+                    navController.navigateClearingBackStack(Screen.Auth.SignUpSuccess.route)
+                }
+            )
+        }
+        composable(Screen.Auth.SignUpSuccess.route) {
+            SignUpSuccessScreen(
+                onFinish = {
+                    navController.navigateClearingBackStack(Screen.Main.route)
+                }
+            )
         }
     }
 }

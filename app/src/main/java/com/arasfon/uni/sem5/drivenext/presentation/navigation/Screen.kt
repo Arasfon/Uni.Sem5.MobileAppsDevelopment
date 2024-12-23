@@ -12,5 +12,6 @@ sealed class Screen(
         data object AuthOptions : Screen("auth_options")
         data object SignIn : Screen("auth_sign_in")
         data object SignUp : Screen("auth_sign_up")
+        data object SignUpSuccess : Screen("auth_sign_up_success")
     }
 }

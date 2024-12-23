@@ -89,7 +89,7 @@ class ValidatableField<TValue, TError>(
             .distinctUntilChanged()
             .stateIn(
                 scope = scope,
-                started = SharingStarted.WhileSubscribed(5000),
+                started = SharingStarted.Eagerly,
                 initialValue = validation(initialValue)
             )
 
